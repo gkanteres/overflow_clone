@@ -1,33 +1,23 @@
+<div class="container">
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Questions</h1>
+<br /><br />
 
-<table>
-  <thead>
-    <tr>
-      <th>Question</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+  <ul>
     <% @questions.each do |question| %>
-      <tr>
-        <td><%= question.question %></td>
-        <td><%= link_to 'Show', question %></td>
-        <td><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'Answer question', new_question_answer_path(question)  %></td>
-      </tr>
+        <h4>"<%= question.question %>"</h4>
+
+        <h4>Asked by <%= question.user.username unless question.user.nil? %> </h4>
+        <li><%= link_to 'Show', question_path(question) %> | <%= link_to 'Edit', edit_question_path(question) %> | <%= link_to 'Destroy', question_path(question), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+
         <% question.answers.each do |answer| %>
-        <tr>
-          <td><%= answer.answer %></td>
-        </tr>
+          <li>"<%= answer.answer %>"</li>
         <% end %>
+        <hr>
     <% end %>
-  </tbody>
-</table>
+  </ul>
 
-<%= link_to 'Add a new Question', new_question_path %>
-
-<br>
+  <br /><br />
+  <%= link_to 'Add a new Question', new_question_path %>
+</div>

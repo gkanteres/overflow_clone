@@ -1,6 +1,7 @@
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
   before_action :set_question, only: [:index, :new, :create, :edit]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @answers = @question.answers

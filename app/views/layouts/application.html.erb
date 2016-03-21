@@ -8,17 +8,42 @@
 </head>
 <body>
 
-<% if flash[:success] %>
-  <div class="alert alert-success">
-    <strong><%= flash[:success]%></strong>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to "Stock Overflaw", root_path, class: "nav navbar-brand" %>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+          <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to 'Sign In', new_user_session_path, method: :get %></li>
+          <li><%= link_to 'Sign Up', new_user_registration_path, method: :get %></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
+</nav>
+
+<% if flash[:success] %>
+<div class="alert alert-success">
+  <strong><%= flash[:success]%></strong>
+</div>
 <% end %>
 <% if flash[:error] %>
-  <div class="alert lert-danger">
-    <strong><%= flash[:error]%></strong>
-  </div>
+<div class="alert lert-danger">
+  <strong><%= flash[:error]%></strong>
+</div>
 <% end %>
-<%= yield %>
+
+<div class="container">
+  <%= yield %>
+</div>
 
 </body>
 </html>

@@ -1,4 +1,7 @@
 FactoryGirl.define do
+  factory :user do
+    
+  end
   # factory :user do
   #   username 'test_user'
   #   email 'test@example.com'

@@ -1,11 +1,14 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+
 
   def index
     @questions = Question.all.order(created_at: :desc)
   end
 
   def show
+    @answer = @question.answers.new
   end
 
   def new
@@ -46,6 +49,6 @@ class QuestionsController < ApplicationController
     end
 
     def question_params
-      params.require(:question).permit(:question)
+      params.require(:question).permit(:question, :user_id)
     end
 end
