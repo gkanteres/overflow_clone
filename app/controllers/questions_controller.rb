@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :create_answer]
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
 
@@ -8,7 +8,6 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @answer = @question.answers.new
   end
 
   def new

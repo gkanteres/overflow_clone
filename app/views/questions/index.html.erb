@@ -9,10 +9,12 @@
         <h4>"<%= question.question %>"</h4>
 
         <h4>Asked by <%= question.user.username unless question.user.nil? %> </h4>
-        <li><%= link_to 'Show', question_path(question) %> | <%= link_to 'Edit', edit_question_path(question) %> | <%= link_to 'Destroy', question_path(question), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+        <%= link_to 'Show', question_path(question) %> | <%= link_to 'Edit', edit_question_path(question) %> | <%= link_to 'Destroy', question_path(question), method: :delete, data: { confirm: 'Are you sure?' } %>
 
         <% question.answers.each do |answer| %>
           <li>"<%= answer.answer %>"</li>
+          (answered by: <%= answer.user.username unless answer.user.nil? %>)
+
         <% end %>
         <hr>
     <% end %>

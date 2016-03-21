@@ -5,7 +5,18 @@
   <%= @question.question %>
 </p>
 
-<%= render partial: 'answer_form' %>
+<% if @question.answers.any? %>
+  <% @question.answers.each do |answer| %>
+    <li>"<%= answer.answer %>"</li>
+    <li><%= link_to 'Edit', edit_question_answer_path(@question, answer) %> | <%= link_to 'Delete', question_answer_path(@question, answer), method: :delete, data: { confirm: 'Are you sure?' } %></li>
 
+    (answered by: <%= answer.user.username unless answer.user.nil? %>)
+  <% end %>
+<% end %>
+
+
+
+<%= render template: 'answers/new', locals: { :@answer => @question.answers.new, :@question => @question } %>
+<br />
 <%= link_to 'Edit', edit_question_path(@question) %> |
 <%= link_to 'Back', questions_path %>

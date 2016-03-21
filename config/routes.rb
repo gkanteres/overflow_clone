@@ -17,6 +17,6 @@ end
   resources :questions do
     resources :answers
   end
-
+  post "questions/:id/create_answer", to: 'questions#create_answer'
   root 'questions#index'
 end

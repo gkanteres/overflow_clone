@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :edit, :update, :destroy]
-  before_action :set_question, only: [:index, :new, :create, :edit]
+  before_action :set_question, only: [:index, :show, :new, :create, :edit, :update]
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
@@ -27,23 +27,17 @@ class AnswersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
       if @answer.update(answer_params)
-        format.html { redirect_to @answer, notice: 'Answer was successfully updated.' }
-        format.json { render :show, status: :ok, location: @answer }
+        redirect_to question_path(@question)
       else
-        format.html { render :edit }
-        format.json { render json: @answer.errors, status: :unprocessable_entity }
+        render :edit
       end
-    end
   end
 
   def destroy
     @answer.destroy
-    respond_to do |format|
-      format.html { redirect_to answers_url, notice: 'Answer was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+      flash[:success] = "Successfully deleted"
+      redirect_to questions_path
   end
 
   private
@@ -57,6 +51,6 @@ class AnswersController < ApplicationController
     end
 
     def answer_params
-      params.require(:answer).permit(:answer)
+      params.require(:answer).permit(:answer, :user_id)
     end
 end
